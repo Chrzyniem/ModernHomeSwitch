@@ -5,4 +5,6 @@ class WiFiManager {
 public:
   static void setupWiFi();
   static String getWiFiList();
+  static String ssid;
+  static String password;
 };

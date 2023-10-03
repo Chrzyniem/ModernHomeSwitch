@@ -1,4 +1,7 @@
 #include "WiFiManager.h"
+#include "main.cpp"
+
+extern Preferences preferences;
 
 void WiFiManager::setupWiFi() {
   String ssid = preferences.getString("ssid", "");

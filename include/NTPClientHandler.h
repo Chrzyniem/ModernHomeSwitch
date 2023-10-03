@@ -7,4 +7,5 @@ public:
   static void setup();
   static void update();
   static String getCurrentTime();
+  static NTPClient timeClient;
 };

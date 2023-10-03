@@ -6,6 +6,8 @@
 #include "NTPClientHandler.h"
 #include "DeviceInfoHandler.h"
 
+Preferences preferences;
+
 WiFiManager wifiManager;
 WebServerHandler webServerHandler;
 NTPClientHandler ntpClientHandler;

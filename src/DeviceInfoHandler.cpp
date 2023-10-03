@@ -1,4 +1,5 @@
 #include "DeviceInfoHandler.h"
+#include "NTPClientHandler.h"
 
 String DeviceInfoHandler::getDeviceInfo() {
   String html = "<h1>Device Info</h1>";
@@ -17,7 +18,7 @@ String DeviceInfoHandler::getDeviceInfo() {
   
   // Dodaj informacje o czasie z serwera NTP
   if (WiFi.status() == WL_CONNECTED) {
-    html += "<p>Current Time: " + timeClient.getFormattedTime() + "</p>";
+    html += "<p>Current Time: " + NTPClientHandler::timeClient.getFormattedTime() + "</p>";
   } else {
     html += "<p>Unable to get the time, device is not connected to the internet.</p>";
   }

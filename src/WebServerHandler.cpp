@@ -5,6 +5,12 @@
 #include <Preferences.h>
 #include <DNSServer.h>
 #include <WebServer.h>
+extern void handleRoot();
+extern void handleWiFi();
+extern void handleSettings();
+extern void handleConnect();
+extern void handleInfo();
+extern void handleConnectPost(), handleReset();
 
 Preferences preferences;
 DNSServer dnsServer;
@@ -57,4 +63,90 @@ void WebServerHandler::update() {
   server.handleClient();
 }
 
-// ... (Tutaj umieść resztę kodu związanej z obsługą serwera WWW, taką jak metody handleRoot, handleWiFi, handleSettings, handleInfo, handleConnect, handleConnectPost, handleReset oraz odpowiednie zmienne i obiekty jak Preferences, DNSServer, WebServer.)
+// Dodatkowe funkcje obsługi serwera WWW, takie jak handleRoot, handleWiFi, handleSettings, handleInfo, handleConnect, handleConnectPost, handleReset.
+void handleRoot() {
+  server.send(200, "text/html", WebServerHandler::getHTML("Modern Home Web Server", ""));
+}
+
+void handleWiFi() {
+  server.send(200, "text/html", WebServerHandler::getHTML("Available WiFi Networks", WiFiManager::getWiFiList()));
+}
+
+void handleSettings() {
+  server.send(200, "text/html", WebServerHandler::getHTML("Settings", WiFiManager::getWiFiList()));
+}
+
+void handleInfo() {
+  String html = "<h1>Device Info</h1>";
+  
+  // Dodaj informacje o MAC adresie
+  String mac = WiFi.macAddress();
+  html += "<p>MAC Address: " + mac + "</p>";
+  
+  // Dodaj informacje o napięciu zasilania
+  float voltage = analogRead(34) * (3.3 / 4095.0); // Przykładowy kod, dostosuj do swojego układu
+  html += "<p>Voltage: " + String(voltage) + " V</p>";
+  
+  // Dodaj informacje o nazwie hosta
+  String hostname = WiFi.getHostname();
+  html += "<p>Hostname: " + hostname + "</p>";
+  
+  // Dodaj informacje o czasie z serwera NTP
+  if (WiFi.status() == WL_CONNECTED) {
+    html += "<p>Current Time: " + NTPClientHandler::timeClient.getFormattedTime() + "</p>";
+  } else {
+    html += "<p>Unable to get the time, device is not connected to the internet.</p>";
+  }
+  
+  html += "<br><a href='#' onclick='if(confirm(\"Are you sure you want to reset to factory settings?\")) window.location=\"/reset\";'>Reset to Factory Settings</a>";
+  html += "<br><a href='/'>Back</a>";
+  server.send(200, "text/html", WebServerHandler::getHTML("Device Info", html));
+}
+
+void handleConnect() {
+    String ssid = server.arg("ssid");
+  String html = "<form method='POST' action='/connect'>";
+  html += "<label for='ssid'>SSID:</label>";
+  html += "<input type='text' id='ssid' name='ssid' value='" + ssid + "' readonly><br>";
+  html += "<label for='password'>Password:</label>";
+  html += "<input type='password' id='password' name='password' required><br>";
+  html += "<input type='submit' value='Connect'>";
+  html += "</form>";
+  server.send(200, "text/html", WebServerHandler::getHTML("Connect to " + ssid, html));
+}
+
+void handleConnectPost() {
+    preferences.putString("ssid", WiFiManager::ssid);
+  preferences.putString("password", WiFiManager::password);
+
+  WiFi.disconnect(); // Disconnect from the current network if connected
+  
+  String mac = WiFi.macAddress();
+  String suffix = mac.substring(mac.length() - 5);
+  suffix.replace(":", "");
+  String hostname = "ModernHome-" + suffix;
+  
+  IPAddress apIP(192, 168, 10, 10);
+  IPAddress gateway(192, 168, 10, 1);
+  IPAddress subnet(255, 255, 255, 0);
+  WiFi.softAPConfig(apIP, gateway, subnet);
+  WiFi.softAP(hostname.c_str(), WiFiManager::password.c_str()); // Set the hostname for AP mode
+  
+  WiFi.begin(WiFiManager::ssid.c_str(), WiFiManager::password.c_str());
+  delay(5000); // Wait 5 seconds for the connection
+  if (WiFi.status() == WL_CONNECTED) {
+    server.send(200, "text/html", "<p>Connected! ESP32 will restart now.</p>");
+    delay(1000); // Wait 1 second before restarting
+    ESP.restart();
+  } else {
+    server.send(200, "text/html", "<p>Connection failed! Please go back and try again.</p>");
+  }
+}
+
+void handleReset() {
+    preferences.remove("ssid");
+  preferences.remove("password");
+  server.send(200, "text/html", "<p>Device has been reset to factory settings! It will now restart.</p>");
+  delay(1000); // Wait 1 second before restarting
+  ESP.restart();
+}

@@ -1,4 +1,5 @@
 #include "NTPClientHandler.h"
+#include <WiFi.h>
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "tempus1.gum.gov.pl", 3600, 60000);
