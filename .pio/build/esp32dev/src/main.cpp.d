@@ -1,4 +1,10 @@
 .pio/build/esp32dev/src/main.cpp.o: src/main.cpp \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/log/include/esp_log.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/dio_qspi/include/sdkconfig.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_rom/include/esp_rom_sys.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/soc/esp32/include/soc/reset_reasons.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_rom/include/esp32/rom/ets_sys.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/log/include/esp_log_internal.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -17,9 +23,6 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/xtensa/include/xtensa/xtensa_context.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/xtensa/include/xtensa/corebits.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/xtensa/include/xtensa/xtruntime-frames.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_rom/include/esp_rom_sys.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/soc/esp32/include/soc/reset_reasons.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_rom/include/esp32/rom/ets_sys.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/projdefs.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/portable.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/deprecated_definitions.h \
@@ -79,8 +82,6 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/event_groups.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/timers.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-log.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/log/include/esp_log.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/log/include/esp_log_internal.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-matrix.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-uart.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-gpio.h \
@@ -198,6 +199,5 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/nghttp/port/include/http_parser.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/Uri.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/detail/RequestHandler.h \
- include/NTPClientHandler.h .pio/libdeps/esp32dev/NTPClient/NTPClient.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
- include/DeviceInfoHandler.h
+ include/NTPClientHandler.h .pio/libdeps/esp32dev/Timezone/src/Timezone.h \
+ .pio/libdeps/esp32dev/Time/TimeLib.h include/DeviceInfoHandler.h

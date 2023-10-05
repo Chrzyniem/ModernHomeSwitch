@@ -193,14 +193,4 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
- src/main.cpp \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h \
- include/WebServerHandler.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/WebServer.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/HTTP_Method.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/nghttp/port/include/http_parser.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/Uri.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/detail/RequestHandler.h \
- include/NTPClientHandler.h .pio/libdeps/esp32dev/NTPClient/NTPClient.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
- include/DeviceInfoHandler.h
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h

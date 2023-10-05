@@ -1,5 +1,6 @@
-arduino-libraries/NTPClient @ ^3.2.1
 arduino-libraries/NTPClient @ ~3.2.1
 arduino-libraries/NTPClient @ 3.2.1
 ESP Async WebServer
+jchristensen/Timezone@^1.2.4
 ottowinter/ESPAsyncWebServer-esphome@^3.1.0
+arduino-libraries/NTPClient @ ^3.2.1

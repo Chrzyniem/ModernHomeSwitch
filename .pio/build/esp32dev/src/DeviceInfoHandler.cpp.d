@@ -193,5 +193,5 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
- include/NTPClientHandler.h .pio/libdeps/esp32dev/NTPClient/NTPClient.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h
+ include/NTPClientHandler.h .pio/libdeps/esp32dev/Timezone/src/Timezone.h \
+ .pio/libdeps/esp32dev/Time/TimeLib.h

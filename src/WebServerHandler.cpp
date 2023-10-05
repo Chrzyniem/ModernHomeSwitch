@@ -10,11 +10,15 @@ extern void handleWiFi();
 extern void handleSettings();
 extern void handleConnect();
 extern void handleInfo();
-extern void handleConnectPost(), handleReset();
+extern void handleConnectPost();
+extern void handleReset();
 
 Preferences preferences;
 DNSServer dnsServer;
 WebServer server(80);
+
+String WiFiManager::clientSSID = "";
+String WiFiManager::clientPassword = "";
 
 String WebServerHandler::getHTML(String title, String content) {
   String html = "<!DOCTYPE html>";
@@ -54,7 +58,6 @@ void WebServerHandler::setup() {
     server.sendHeader("Location", String("http://") + WiFi.softAPIP().toString(), true);
     server.send(302, "text/plain", "");
   });
-
   server.begin();
 }
 
@@ -77,26 +80,34 @@ void handleSettings() {
 }
 
 void handleInfo() {
-  String html = "<h1>Device Info</h1>";
+  String html = DeviceInfoHandler::getDeviceInfo();
+  // String html = "<h1>Device Info</h1>";
   
-  // Dodaj informacje o MAC adresie
-  String mac = WiFi.macAddress();
-  html += "<p>MAC Address: " + mac + "</p>";
+  // // Dodaj informacje o MAC adresie
+  // String mac = WiFi.macAddress();
+  // html += "<p>MAC Address: " + mac + "</p>";
   
-  // Dodaj informacje o napięciu zasilania
-  float voltage = analogRead(34) * (3.3 / 4095.0); // Przykładowy kod, dostosuj do swojego układu
-  html += "<p>Voltage: " + String(voltage) + " V</p>";
+  // // Dodaj informacje o napięciu zasilania
+  // float voltage = analogRead(34) * (3.3 / 4095.0); // Przykładowy kod, dostosuj do swojego układu
+  // html += "<p>Voltage: " + String(voltage) + " V</p>";
   
-  // Dodaj informacje o nazwie hosta
-  String hostname = WiFi.getHostname();
-  html += "<p>Hostname: " + hostname + "</p>";
+  // // Dodaj informacje o nazwie hosta
+  // String hostname = WiFi.getHostname();
+  // html += "<p>Hostname: " + hostname + "</p>";
   
-  // Dodaj informacje o czasie z serwera NTP
-  if (WiFi.status() == WL_CONNECTED) {
-    html += "<p>Current Time: " + NTPClientHandler::timeClient.getFormattedTime() + "</p>";
-  } else {
-    html += "<p>Unable to get the time, device is not connected to the internet.</p>";
-  }
+  // // Dodaj informacje o czasie z serwera NTP
+  // if (WiFi.status() == WL_CONNECTED) {
+  //   html += "<p>Current Date: " + NTPClientHandler::getCurrentDate() + "</p>";
+  //   html += "<p>Current Time: " + NTPClientHandler::getCurrentTime() + "</p>";
+  // } else {
+  //   html += "<p>Unable to get the time, device is not connected to the internet.</p>";
+  // }
+
+//  if (WiFi.status() == WL_CONNECTED) {
+//    html += "<p>Current Time: " + NTPClientHandler::timeClient.getFormattedTime() + "</p>";
+//  } else {
+//    html += "<p>Unable to get the time, device is not connected to the internet.</p>";
+//  }
   
   html += "<br><a href='#' onclick='if(confirm(\"Are you sure you want to reset to factory settings?\")) window.location=\"/reset\";'>Reset to Factory Settings</a>";
   html += "<br><a href='/'>Back</a>";
@@ -104,49 +115,63 @@ void handleInfo() {
 }
 
 void handleConnect() {
-    String ssid = server.arg("ssid");
+  String localSSID = server.arg("localSSID");
+  
+ 
+
   String html = "<form method='POST' action='/connect'>";
-  html += "<label for='ssid'>SSID:</label>";
-  html += "<input type='text' id='ssid' name='ssid' value='" + ssid + "' readonly><br>";
-  html += "<label for='password'>Password:</label>";
-  html += "<input type='password' id='password' name='password' required><br>";
+  html += "<label for='localSSID'>SSID:</label>";
+  html += "<input type='text' id='localSSID' name='localSSID' value='" + localSSID + "' readonly><br>";
+  html += "<label for='inputPassword'>Password:</label>";
+  html += "<input type='password' id='inputPassword' name='inputPassword' required><br>";
   html += "<input type='submit' value='Connect'>";
   html += "</form>";
-  server.send(200, "text/html", WebServerHandler::getHTML("Connect to " + ssid, html));
+  server.send(200, "text/html", WebServerHandler::getHTML("Connect to " + localSSID, html));
+   // Przypisz wartość clientSSID do zmiennej statycznej WiFiManager::clientSSID
+  WiFiManager::clientSSID = localSSID;
+  Serial.println("Trying to connect with SSID: " + localSSID);
 }
 
 void handleConnectPost() {
-    preferences.putString("ssid", WiFiManager::ssid);
-  preferences.putString("password", WiFiManager::password);
+    WiFiManager::clientSSID = server.arg("localSSID");
+    WiFiManager::clientPassword = server.arg("inputPassword");
+    preferences.begin("wifi-config", false);
+    // Zapisz SSID i hasło klienta do preferencji
+    preferences.putString("clientSSID", WiFiManager::clientSSID);
+    preferences.putString("clientPassword", WiFiManager::clientPassword);
 
-  WiFi.disconnect(); // Disconnect from the current network if connected
-  
-  String mac = WiFi.macAddress();
-  String suffix = mac.substring(mac.length() - 5);
-  suffix.replace(":", "");
-  String hostname = "ModernHome-" + suffix;
-  
-  IPAddress apIP(192, 168, 10, 10);
-  IPAddress gateway(192, 168, 10, 1);
-  IPAddress subnet(255, 255, 255, 0);
-  WiFi.softAPConfig(apIP, gateway, subnet);
-  WiFi.softAP(hostname.c_str(), WiFiManager::password.c_str()); // Set the hostname for AP mode
-  
-  WiFi.begin(WiFiManager::ssid.c_str(), WiFiManager::password.c_str());
-  delay(5000); // Wait 5 seconds for the connection
-  if (WiFi.status() == WL_CONNECTED) {
-    server.send(200, "text/html", "<p>Connected! ESP32 will restart now.</p>");
-    delay(1000); // Wait 1 second before restarting
-    ESP.restart();
-  } else {
-    server.send(200, "text/html", "<p>Connection failed! Please go back and try again.</p>");
-  }
+    Serial.println("Zapisalem SSID: " + WiFiManager::clientSSID + " and Password: " + WiFiManager::clientPassword);
+
+    // Odłącz od obecnej sieci, jeśli jesteś podłączony
+    WiFi.disconnect();
+
+    // Próbuj połączyć się z nową siecią
+    WiFi.begin(WiFiManager::clientSSID.c_str(), WiFiManager::clientPassword.c_str());
+    unsigned long startTime = millis();
+    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 20000) {
+      delay(200);
+    }
+
+    // WiFi.begin(WiFiManager::clientSSID.c_str(), WiFiManager::clientPassword.c_str());
+    // delay(3000); // Czekaj 3 sekund na połączenie
+
+    if (WiFi.status() == WL_CONNECTED) {
+        server.send(200, "text/html", "<p>Connected! ESP32 will restart now.</p>");
+        delay(2000); // Czekaj 1 sekundę przed ponownym uruchomieniem
+        ESP.restart();
+    } else {
+        server.send(200, "text/html", "<p>Connection failed! Please go back and try again.</p>");
+    }
+    preferences.end();
 }
 
+
 void handleReset() {
-    preferences.remove("ssid");
-  preferences.remove("password");
+  preferences.begin("wifi-config", false);
+  preferences.remove("clientSSID");
+  preferences.remove("clientPassword");
+  preferences.end();
   server.send(200, "text/html", "<p>Device has been reset to factory settings! It will now restart.</p>");
-  delay(1000); // Wait 1 second before restarting
+  delay(2000); // Wait 0,5 second before restarting
   ESP.restart();
 }

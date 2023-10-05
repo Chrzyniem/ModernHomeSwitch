@@ -1,11 +1,23 @@
+// #pragma once
+// #include <NTPClient.h>
+// #include <WiFiUdp.h>
+
+
+// class NTPClientHandler {
+// public:
+//   static void setup();
+//   static void update();
+//   static String getCurrentTime();
+//   static NTPClient timeClient;
+// };
+
 #pragma once
-#include <NTPClient.h>
-#include <WiFiUdp.h>
+#include <Timezone.h>
 
 class NTPClientHandler {
 public:
   static void setup();
-  static void update();
+  // static void update();
   static String getCurrentTime();
-  static NTPClient timeClient;
+  static String getCurrentDate();
 };

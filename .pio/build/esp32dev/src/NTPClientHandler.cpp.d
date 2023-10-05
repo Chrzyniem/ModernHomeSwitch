@@ -1,5 +1,5 @@
 .pio/build/esp32dev/src/NTPClientHandler.cpp.o: src/NTPClientHandler.cpp \
- include/NTPClientHandler.h .pio/libdeps/esp32dev/NTPClient/NTPClient.h \
+ include/NTPClientHandler.h .pio/libdeps/esp32dev/Timezone/src/Timezone.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include/freertos/FreeRTOS.h \
@@ -132,9 +132,7 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/esp_hw_support/include/soc/esp32/spiram.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
+ .pio/libdeps/esp32dev/Time/TimeLib.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/IPv6Address.h \
@@ -192,4 +190,7 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Server.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
+ include/WiFiManager.h

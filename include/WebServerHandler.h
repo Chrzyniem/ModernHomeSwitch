@@ -1,5 +1,8 @@
 #pragma once
 #include <WebServer.h>
+#include <Preferences.h>
+
+extern Preferences preferences;
 
 class WebServerHandler {
 public:

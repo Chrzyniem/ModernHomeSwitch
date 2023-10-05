@@ -197,9 +197,9 @@
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/nghttp/port/include/http_parser.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/Uri.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src/detail/RequestHandler.h \
- include/WiFiManager.h include/NTPClientHandler.h \
- .pio/libdeps/esp32dev/NTPClient/NTPClient.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
- include/DeviceInfoHandler.h \
  C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src/Preferences.h \
- C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/DNSServer/src/DNSServer.h
+ include/WiFiManager.h include/NTPClientHandler.h \
+ .pio/libdeps/esp32dev/Timezone/src/Timezone.h \
+ .pio/libdeps/esp32dev/Time/TimeLib.h include/DeviceInfoHandler.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/DNSServer/src/DNSServer.h \
+ C:/Users/Krzys/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h
